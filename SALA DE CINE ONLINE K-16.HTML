@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sala de Cine Pro</title>
+
+<style>
+body{
+    margin:0;
+    background:#0a0a0a;
+    font-family:Arial;
+    color:#fff;
+}
+
+/* HEADER */
+header{
+    text-align:center;
+    padding:20px;
+    font-size:26px;
+    font-weight:bold;
+    background:linear-gradient(90deg,#ff0000,#000);
+}
+
+/* CONTENEDOR */
+.container{
+    width:95%;
+    max-width:1100px;
+    margin:20px auto;
+}
+
+/* CONTENEDOR VIDEO */
+.video-container{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+/* PANTALLA PRINCIPAL */
+.main-player{
+    box-shadow:0 0 40px rgba(255,0,0,0.4);
+    margin-bottom:20px;
+}
+
+/* MONITOR FAMILIAR */
+.second-player{
+    box-shadow:0 0 20px rgba(255,255,255,0.2);
+}
+
+/* VIDEO */
+.video-container iframe,
+.video-container video{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* LOGO */
+.logo{
+    position:absolute;
+    top:15px;
+    left:15px;
+    width:80px;
+    z-index:10;
+}
+
+/* BOTÓN FULLSCREEN */
+.fullscreen-btn{
+    position:absolute;
+    bottom:15px;
+    right:15px;
+    padding:6px 10px;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+    z-index:10;
+}
+
+/* RELOJ */
+.clock{
+    position:absolute;
+    top:15px;
+    right:15px;
+    padding:6px 12px;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(6px);
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    letter-spacing:1px;
+    z-index:10;
+    color:#00ffcc;
+    box-shadow:0 0 10px rgba(0,255,200,0.4);
+}
+
+/* TITULOS */
+.title{
+    margin:10px 0;
+    font-size:18px;
+    text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>🎬 SALA DE CINE ONLINE K-16</header>
+
+<div class="container">
+
+<!-- 🎬 PANTALLA GRANDE -->
+<div class="title">Pantalla Principal</div>
+<div class="video-container main-player" id="player1">
+
+    <iframe src="https://ok.ru/videoembed/13335173139006?nochat=1" allowfullscreen></iframe>
+
+    <img class="logo" src="https://i.postimg.cc/rmb2mbCk/Logo-Canal-1.png">
+
+    <div class="clock" id="clock1"></div>
+
+    <button class="fullscreen-btn" onclick="toggleFullscreen('player1')">⛶</button>
+
+</div>
+
+<!-- 👨‍👩‍👧 Películas, series y cortos  Cine Familiar -->
+<div class="title">Películas, series y cortos  Cine Familiar</div>
+<div class="video-container second-player" id="player2">
+
+    <iframe src="https://ok.ru/videoembed/9389137332859?nochat=1" allowfullscreen></iframe>
+
+    <img class="logo" src="https://i.postimg.cc/rmb2mbCk/Logo-Canal-1.png">
+
+    <div class="clock" id="clock2"></div>
+
+    <button class="fullscreen-btn" onclick="toggleFullscreen('player2')">⛶</button>
+
+</div>
+
+</div>
+
+<script>
+// FULLSCREEN
+function toggleFullscreen(id){
+    const elem = document.getElementById(id);
+    if (!document.fullscreenElement){
+        elem.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// RELOJ EN VIVO
+function updateClock(){
+    const now = new Date();
+
+    const hora = now.toLocaleTimeString('es-CL', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+
+    document.getElementById('clock1').textContent = hora;
+    document.getElementById('clock2').textContent = hora;
+}
+
+// actualizar cada segundo
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>
